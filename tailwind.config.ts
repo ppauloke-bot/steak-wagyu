@@ -8,17 +8,20 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        ember: "#D9663B",
-        char: "#0A0908",
-        ash: "#8A8580",
-        bone: "#F4F1EC",
+        char: "#0B0A09", // near-black, warm
+        coal: "#141210",
+        bone: "#F4EFE7", // warm off-white
+        ash: "#9A9188", // muted warm grey
+        ember: "#D9663B", // terracotta secondary
+        amber: "#E7A24A", // golden primary accent
       },
       fontFamily: {
-        display: ["var(--font-display)", "Georgia", "serif"],
-        sans: ["var(--font-sans)", "system-ui", "sans-serif"],
+        display: ["var(--font-display)"],
+        sans: ["var(--font-sans)"],
       },
       letterSpacing: {
-        wordmark: "0.35em",
+        eyebrow: "0.42em",
+        wordmark: "0.3em",
       },
     },
   },

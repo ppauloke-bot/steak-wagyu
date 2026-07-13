@@ -3,15 +3,17 @@
 import { useEffect, useState } from "react";
 import LogoKiln from "./LogoKiln";
 
-const NAV_LINKS = [
+const NAV = [
   { label: "The Cut", href: "#cut" },
-  { label: "The Room", href: "#room" },
-  { label: "Menu", href: "#menu" },
+  { label: "The Age", href: "#age" },
+  { label: "The Sear", href: "#sear" },
+  { label: "The Table", href: "#table" },
 ];
 
 /**
- * Fixed header following the architecture-site pattern: transparent over the
- * hero, then a quiet char-tinted blur once the page scrolls. KILN branded.
+ * Editorial fixed header (reference: dot + serif wordmark · centered nav ·
+ * meta + bordered reservation button). Transparent over the hero, then a
+ * quiet char blur with a hairline once scrolled.
  */
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
@@ -27,36 +29,44 @@ export default function Header() {
     <header
       className={`fixed inset-x-0 top-0 z-50 transition-colors duration-500 ${
         scrolled
-          ? "bg-char/70 backdrop-blur-md border-b border-white/5"
-          : "bg-transparent border-b border-transparent"
+          ? "border-b border-white/[0.06] bg-char/70 backdrop-blur-md"
+          : "border-b border-transparent bg-transparent"
       }`}
     >
-      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6 md:px-10">
-        <a href="#top" className="flex items-center gap-3 group">
-          <LogoKiln size={26} />
-          <span className="font-display text-lg font-bold uppercase tracking-wordmark text-bone">
+      <div className="mx-auto flex h-[72px] max-w-[1400px] items-center justify-between px-6 md:px-10">
+        {/* Brand */}
+        <a href="#top" className="flex items-center gap-2.5">
+          <LogoKiln size={22} />
+          <span className="font-display text-xl font-medium uppercase tracking-wordmark text-bone">
             Kiln
           </span>
         </a>
 
-        <nav className="hidden items-center gap-10 md:flex">
-          {NAV_LINKS.map((link) => (
+        {/* Center nav */}
+        <nav className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-9 md:flex">
+          {NAV.map((n) => (
             <a
-              key={link.href}
-              href={link.href}
-              className="text-xs font-medium uppercase tracking-[0.2em] text-ash transition-colors hover:text-bone"
+              key={n.href}
+              href={n.href}
+              className="text-[11px] font-medium uppercase tracking-[0.22em] text-ash transition-colors hover:text-bone"
             >
-              {link.label}
+              {n.label}
             </a>
           ))}
         </nav>
 
-        <a
-          href="#reserve"
-          className="rounded-full border border-ember/60 px-5 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-ember transition-colors hover:bg-ember hover:text-char"
-        >
-          Reserve
-        </a>
+        {/* Meta + book */}
+        <div className="flex items-center gap-5">
+          <span className="hidden text-[10px] uppercase tracking-[0.28em] text-ash lg:inline">
+            Tonight — 7<span className="lowercase">pm</span>
+          </span>
+          <a
+            href="#reserve"
+            className="rounded-[3px] border border-amber/50 px-4 py-2 text-[10px] font-semibold uppercase tracking-[0.24em] text-amber transition-colors hover:bg-amber hover:text-char"
+          >
+            Reserve
+          </a>
+        </div>
       </div>
     </header>
   );

@@ -26,3 +26,4 @@ yarn-error.log*
 next-env.d.ts
 
 # large local media (add your own steak.mp4 into /public)
+public/steak_original.mp4

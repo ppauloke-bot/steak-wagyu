@@ -1,21 +1,20 @@
+import { useId } from "react";
+
 type LogoKilnProps = {
-  /** Pixel size of the square flame mark. */
   size?: number;
   className?: string;
-  /** Ember stroke color; defaults to the KILN ember-orange. */
-  color?: string;
 };
 
 /**
- * KILN mark — a single continuous curved line suggesting a flame/ember
- * silhouette. Abstract and geometric, thin stroke, minimal fill. Not a
- * literal cartoon flame.
+ * KILN mark — a precise, symmetric ember. An outer flame drawn as a thin
+ * warm-gradient stroke with a low-fill body, a solid amber inner ember for
+ * negative-space contrast, and a detached spark above the tip. Built on a
+ * 24-grid so it stays crisp at any size.
  */
-export default function LogoKiln({
-  size = 28,
-  className,
-  color = "#D9663B",
-}: LogoKilnProps) {
+export default function LogoKiln({ size = 30, className }: LogoKilnProps) {
+  const uid = useId().replace(/:/g, "");
+  const grad = `kiln-grad-${uid}`;
+
   return (
     <svg
       width={size}
@@ -26,15 +25,31 @@ export default function LogoKiln({
       aria-label="KILN"
       className={className}
     >
-      {/* One continuous stroke: a leaning flame silhouette that curls
-          back on itself — read as ember, not campfire. */}
+      <defs>
+        <linearGradient id={grad} x1="12" y1="2" x2="12" y2="21" gradientUnits="userSpaceOnUse">
+          <stop offset="0" stopColor="#F2C078" />
+          <stop offset="0.5" stopColor="#E7A24A" />
+          <stop offset="1" stopColor="#D9663B" />
+        </linearGradient>
+      </defs>
+
+      {/* detached spark */}
+      <circle cx="12" cy="1.7" r="0.9" fill={`url(#${grad})`} />
+
+      {/* outer flame — thin stroke, faint warm body */}
       <path
-        d="M13.2 1.6c1.1 3.4-1.9 5.3-2.7 8.1-.6 2.1.4 3.6 1.9 3.8 1.6.2 2.7-1.1 2.5-2.7 1.9 1.7 2.8 4 1.9 6.4-1 2.7-3.8 4.4-6.7 4.1-3-.3-5.4-2.7-5.6-5.7-.2-3 1.4-5.2 3.1-7.3 1.9-2.3 3.6-4.4 2.6-7.6 1.2.2 2.3.5 3 .9Z"
-        stroke={color}
-        strokeWidth="1.1"
+        d="M12 3.4c2.9 4.3 5.4 6.6 5.4 10.8a5.4 5.4 0 0 1-10.8 0c0-2.9 1.5-4.9 2.5-6.4 0.8 1.3 1.2 2.1 2 2.5-0.4-2.5 0-5.4 0.9-7.5Z"
+        fill={`url(#${grad})`}
+        fillOpacity="0.1"
+        stroke={`url(#${grad})`}
+        strokeWidth="1.05"
         strokeLinejoin="round"
-        fill={color}
-        fillOpacity="0.07"
+      />
+
+      {/* inner ember — solid */}
+      <path
+        d="M12 12.4c1.15 1.2 1.75 2.15 1.75 3.4a1.75 1.75 0 0 1-3.5 0c0-1.15 0.7-1.95 1.75-3.4Z"
+        fill={`url(#${grad})`}
       />
     </svg>
   );
