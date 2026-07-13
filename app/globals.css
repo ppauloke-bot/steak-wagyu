@@ -1,0 +1,28 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* System-font stacks keep the build offline-safe while reading as
+     a condensed display serif + clean grotesk. */
+  --font-display: "Georgia", "Times New Roman", serif;
+  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
+    Helvetica, Arial, sans-serif;
+}
+
+html {
+  background-color: #0a0908;
+  color: #f4f1ec;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  font-family: var(--font-sans);
+  margin: 0;
+}
+
+::selection {
+  background: #d9663b;
+  color: #0a0908;
+}
